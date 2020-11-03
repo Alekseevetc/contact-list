@@ -1,7 +1,7 @@
 import React from "react";
 import ContactItem from "./ContactItem/ContactItem";
 
-const ContactList = ({ List }) => {
+const ContactList = ({ List, onStatusChange, onDelete, onEdit }) => {
   const item = List.map((item) => {
     return (
       <ContactItem
@@ -12,31 +12,45 @@ const ContactList = ({ List }) => {
         created={item.created}
         status={item.status}
         email={item.email}
+        gender={item.gender}
+        onStatusChange={() => onStatusChange(item.id)}
+        onDelete={() => onDelete(item.id)}
+        onEdit={() => onEdit(item.id)}
       />
     );
   });
   return (
-    <div className="table-responsive">
-      <table className="table user-list">
-        <thead>
-          <tr>
-            <th>
-              <span>User</span>
-            </th>
-            <th>
-              <span>Created</span>
-            </th>
-            <th className="text-center">
-              <span>Status</span>
-            </th>
-            <th>
-              <span>Email</span>
-            </th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>{item}</tbody>
-      </table>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="main-box clearfix">
+            <div className="table-responsive">
+              <table className="table user-list">
+                <thead>
+                  <tr>
+                    <th>
+                      <span>User</span>
+                    </th>
+                    <th>
+                      <span>Created</span>
+                    </th>
+                    <th className="text-center">
+                      <span>Status</span>
+                    </th>
+                    <th>
+                      <span>Email</span>
+                    </th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.length !== 0 ? item : <h2>Contact list is empty.</h2>}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
